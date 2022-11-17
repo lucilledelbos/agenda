@@ -1,30 +1,59 @@
 package agenda;
-
-import java.time.LocalDate;
 import java.util.*;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 /**
- * Description : An agenda that stores events
+ * Description : A repetitive Event
  */
-public class Agenda {
+public class RepetitiveEvent extends Event {
     /**
-     * Adds an event to this agenda
+     * Constructs a repetitive event
      *
-     * @param e the event to add
+     * @param title the title of this event
+     * @param start the start of this event
+     * @param duration myDuration in seconds
+     * @param frequency one of :
+     * <UL>
+     * <LI>ChronoUnit.DAYS for daily repetitions</LI>
+     * <LI>ChronoUnit.WEEKS for weekly repetitions</LI>
+     * <LI>ChronoUnit.MONTHS for monthly repetitions</LI>
+     * </UL>
      */
-    public void addEvent(Event e) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+    private ChronoUnit frequency;
+    private ArrayList<LocalDate> exceptions = new ArrayList<>();
+
+    public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
+        super(title, start, duration);
+        this.frequency=frequency;
     }
 
     /**
-     * Computes the events that occur on a given day
+     * Adds an exception to the occurrence of this repetitive event
      *
-     * @param day the day toi test
-     * @return and iteraror to the events that occur on that day
+     * @param date the event will not occur at this date
      */
-    public List<Event> eventsInDay(LocalDate day) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+    public void addException(LocalDate date){
+        exceptions.add(date);
+    }
+
+    /**
+     *
+     * @return the type of repetition
+     */
+    public ChronoUnit getFrequency() {
+        return frequency;
+    }
+
+    @Override
+    public boolean isInDay(LocalDate aDay) {
+        boolean result=false;
+        switch (frequency){
+            case DAYS:
+                break;
+                //getStart().toLocalDate().equals(aDay)
+            //result=true;
+        }
+        return result;
     }
 }
